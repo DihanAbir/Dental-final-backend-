@@ -22,6 +22,10 @@ app.use("/api/v1/user", user);
 app.use("/api/v1/disease", disease);
 app.use("/api/v1/days", days);
 
+app.get("/", (req, res) => {
+  res.send("Welcome");
+});
+
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
