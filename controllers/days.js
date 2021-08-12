@@ -84,7 +84,23 @@ exports.updateDaysByDaysID = asycnHandler(async (req, res) => {
 
   // Get days by disease
   const days = await Days.findById(_id);
+
+  const id = days.diseaseid;
   console.log(`days`, days);
+
+  const disease = await Disease.findById(id);
+  if (pay > days.pay) {
+    var addpay = pay - days.pay;
+    disease.pay = disease.pay + addpay;
+    disease.due = disease.due - addpay;
+  } else if (pay < days.pay) {
+    const subspay = days.pay - pay;
+    disease.pay = disease.pay - subspay;
+    disease.due = disease.due + subspay;
+  }
+
+  // disease.pay = disease.pay - days.pay;
+  disease.save();
 
   days.prescription = prescription || days.prescription;
   days.pay = pay || days.pay;
@@ -112,7 +128,7 @@ exports.deleteDaysByDaysID = asycnHandler(async (req, res) => {
 
   // Get days by disease
   const daysToUpdate = await Days.findById(_id);
-  console.log(`daysToUpdate`, daysToUpdate.diseaseid);
+  // console.log(`daysToUpdate`, daysToUpdate.diseaseid);
   const id = daysToUpdate.diseaseid;
 
   // update bill korar jnne desis model k eikhane ana lagteceh

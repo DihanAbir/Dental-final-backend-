@@ -8,8 +8,20 @@ const Disease = require("../models/Disease");
 exports.addADisease = asycnHandler(async (req, res) => {
   const userid = req.params.userid;
 
-  const { title, bill, pay, treatment, treatmentPlan } = req.body;
-  console.log(req.body);
+  const {
+    title,
+    bill,
+    pay,
+    treatment,
+    treatmentPlan,
+    InV,
+    BP,
+    Diabetes,
+    Temp,
+    DeseaseHistory,
+    MedicineHistory,
+  } = req.body;
+  // console.log(req.body);
   due = bill - pay;
   // Create user
   const disease = await Disease.create({
@@ -20,6 +32,13 @@ exports.addADisease = asycnHandler(async (req, res) => {
     treatment,
     treatmentPlan,
     userid,
+
+    InV,
+    BP,
+    Diabetes,
+    Temp,
+    DeseaseHistory,
+    MedicineHistory,
   });
 
   try {
@@ -130,6 +149,12 @@ exports.updateADisease = asycnHandler(async (req, res) => {
     payupdated,
     treatmentupdated,
     treatmentPlanupdated,
+    UpdatedInV,
+    UpdatedBP,
+    UpdatedDiabetes,
+    UpdatedTemp,
+    UpdatedDeseaseHistory,
+    UpdatedMedicineHistory,
   } = req.body;
   const id = req.params.id;
   // req.body.due = Number(req.body.bill) - Number(req.body.pay);
@@ -150,6 +175,17 @@ exports.updateADisease = asycnHandler(async (req, res) => {
 
   disease.bill = bilupdated || disease.bill;
   disease.pay = payupdated || disease.pay;
+  disease.title = titleupdated || disease.title;
+  disease.treatment = treatmentupdated || disease.treatment;
+  disease.treatmentPlan = treatmentPlanupdated || disease.treatmentPlan;
+
+  disease.InV = UpdatedInV || disease.InV;
+  disease.BP = UpdatedBP || disease.BP;
+  disease.Diabetes = UpdatedDiabetes || disease.Diabetes;
+  disease.Temp = UpdatedTemp || disease.Temp;
+  disease.DeseaseHistory = UpdatedDeseaseHistory || disease.DeseaseHistory;
+  disease.MedicineHistory = UpdatedMedicineHistory || disease.MedicineHistory;
+
   disease.due = disease.bill - disease.pay || disease.due;
 
   // Update user

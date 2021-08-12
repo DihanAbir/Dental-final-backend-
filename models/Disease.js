@@ -23,6 +23,25 @@ const DiseaseSchema = new mongoose.Schema({
   treatmentPlan: {
     type: String,
   },
+  InV: {
+    type: String,
+  },
+  BP: {
+    type: String,
+  },
+  Diabetes: {
+    type: String,
+  },
+  Temp: {
+    type: String,
+  },
+  DeseaseHistory: {
+    type: String,
+  },
+  MedicineHistory: {
+    type: String,
+  },
+
   days: {
     type: mongoose.Schema.ObjectId,
     ref: "days",
